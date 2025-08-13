@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <th:block th:fragment="specialOffersList(specialOffers)">
+
+
+        <div th:if="${not #lists.isEmpty(specialOffers)}">
+            <h1>Active offers for this pizza</h1>
+            <table class="table">
+                <tr>
+                    <th>title</th>
+                    <th>begins</th>
+                    <th>ends</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr th:each="specialOffer : ${specialOffers}">
+                    <td th:text="${specialOffer.title}"></td>
+                    <td th:text="${specialOffer.beginDate}"></td>
+                    <td th:text="${specialOffer.endDate}"></td>
+                    <td>
+                        <a th:href="@{/specialOffers/edit/{id}(id=${specialOffer.id})}" class="btn btn-warning btn-sm">
+                            edit
+                        </a>
+                    </td>
+
+                    <td>
+                        <form action="#" th:action="@{/specialOffers/delete/{id}(id=${specialOffer.id})}" method="post"
+                            data-bs-toggle>
+                            <button type="submit" class="btn btn-danger btn-sm mx-2">delete</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <h2 class="mt-5" th:unless="${not #lists.isEmpty(specialOffers)}">There are no active
+            specialOffers for
+            this pizza
+        </h2>
+    </th:block>
+</body>
+
+</html>

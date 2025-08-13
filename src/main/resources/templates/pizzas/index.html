@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pizzas</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}">
+</head>
+
+<body>
+    <th:block th:insert="~{fragments/navbar.html :: navbar}"></th:block>
+    <table th:if="${pizzas.size() > 0}" class="table">
+        <tr th:each="pizza : ${pizzas}">
+            <th th:text="${pizza.name}"></th>
+            <th>
+                <a th:href="@{http://localhost:8080/pizza/{id}(id=${pizza.id})}" class="btn btn-primary btn-sm">
+                    info
+                </a>
+            </th>
+
+            <th>
+                <a th:href="@{/edit/{id}(id=${pizza.id})}" class="btn btn-warning btn-sm">
+                    edit
+                </a>
+            </th>
+
+            <th>
+                <a th:href="@{/pizza/{id}/new-specialOffer(id=${pizza.id})}" class="btn btn-outline-primary btn-sm">
+                    new offer
+                </a>
+            </th>
+
+            <th>
+                <form action="#" th:action="@{/delete/{id}(id=${pizza.id})}" method="post" data-bs-toggle>
+                    <button type="submit" class="btn btn-danger btn-sm mx-2">delete</button>
+                </form>
+            </th>
+
+
+        </tr>
+    </table>
+    <th:block th:unless="${pizzas.size() > 0}">
+        <th:block th:insert="fragments/empty.html :: emptyList"></th:block>
+    </th:block>
+</body>
+
+</html>

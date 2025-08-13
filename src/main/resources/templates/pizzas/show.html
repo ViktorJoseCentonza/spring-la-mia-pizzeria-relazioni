@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pizza</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.0/css/bootstrap.min.css}">
+</head>
+
+<body>
+    <th:block th:insert="~{fragments/navbar.html :: navbar}"></th:block>
+    <th:block th:object="${pizza}">
+
+        <section class="d-flex justify-content-between">
+            <div class="d-flex">
+                <div>
+                    <h1>[[*{name}]]</h1>
+                    <div>
+                        <span>[[*{description}]]</span>
+                        <div class="d-flex">
+                            <a th:href="@{/edit/{id}(id=${pizza.id})}" class="btn btn-warning btn-sm ms-2">
+                                edit
+                            </a>
+
+                            <a th:href="@{/pizza/{id}/new-specialOffer(id=${pizza.id})}"
+                                class="btn btn-outline-primary btn-sm mx-2">
+                                new offer
+                            </a>
+
+                            <form action="#" th:action="@{/delete/{id}(id=${pizza.id})}" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm">delete</button>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <h1>[[*{price}]]$</h1>
+
+                <th:block th:replace="fragments/specialOffersList :: specialOffersList(${pizza.specialOffers})">
+                </th:block>
+            </div>
+
+
+            <img class="img-fluid img-thumbnail w-25 m-4" th:src="@{*{image_url}}" alt="foto-pizza">
+
+        </section>
+
+
+
+
+
+
+    </th:block>
+
+
+</body>
+
+</html>
