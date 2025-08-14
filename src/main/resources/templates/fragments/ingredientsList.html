@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <th:block th:fragment="ingredientsList(ingredients)">
+
+
+        <div th:if="${not #lists.isEmpty(ingredients)}">
+            <h1>Ingredient for this pizza</h1>
+            <table class="table">
+                <tr>
+                    <th>name</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr th:each="ingredient : ${ingredients}">
+                    <td th:text="${ingredient.name}"></td>
+                    <td>
+                        <a th:href="@{/ingredients/show/{id}(id=${ingredient.id})}" class="btn btn-primary btn-sm">
+                            info
+                        </a>
+                    </td>
+                    <td>
+                        <a th:href="@{/ingredients/edit/{id}(id=${ingredient.id})}" class="btn btn-warning btn-sm">
+                            edit
+                        </a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div th:unless="${not #lists.isEmpty(ingredients)}">
+            <h2 class="mt-5">There are no ingredients listed on this pizza!
+            </h2>
+            <a th:href="@{/edit/{id}(id=${pizza.id})}" class="btn btn-success btn-sm">
+                edit pizza
+            </a>
+        </div>
+
+    </th:block>
+</body>
+
+</html>

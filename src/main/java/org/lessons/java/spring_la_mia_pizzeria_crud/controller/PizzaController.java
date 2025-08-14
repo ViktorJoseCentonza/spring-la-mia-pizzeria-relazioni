@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_crud.model.SpecialOffer;
+import org.lessons.java.spring_la_mia_pizzeria_crud.repository.IngredientsRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.PizzaRepository;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repository.SpecialOffersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/")
 public class PizzaController {
 
+    private final IngredientsRepository ingredientsRepository;
+
     @Autowired
     private PizzaRepository repository;
 
     @Autowired
     private SpecialOffersRepository specialOffersRepository;
+
+    PizzaController(IngredientsRepository ingredientsRepository) {
+        this.ingredientsRepository = ingredientsRepository;
+    }
 
     @GetMapping("/pizzas")
     public String index(Model model) {
@@ -57,6 +64,7 @@ public class PizzaController {
     public String create(Model model) {
 
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientsRepository.findAll());
         return "pizzas/create";
     }
 
@@ -72,6 +80,8 @@ public class PizzaController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("pizza", repository.findById(id).get());
+
+        model.addAttribute("ingredients", ingredientsRepository.findAll());
         return "pizzas/edit";
     }
 

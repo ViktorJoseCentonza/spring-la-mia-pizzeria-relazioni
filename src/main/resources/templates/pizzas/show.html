@@ -33,12 +33,13 @@
                             </form>
                         </div>
 
-
+                        <th:block th:replace="fragments/ingredientsList :: ingredientsList(${pizza.ingredients})">
+                        </th:block>
                     </div>
 
                 </div>
 
-                <h1>[[*{price}]]$</h1>
+                <h1 class="">[[*{price}]]$</h1>
 
                 <th:block th:replace="fragments/specialOffersList :: specialOffersList(${pizza.specialOffers})">
                 </th:block>

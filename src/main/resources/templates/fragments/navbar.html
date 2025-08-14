@@ -19,6 +19,14 @@
                 Add new Pizza
             </a>
 
+            <a href="/ingredients" class="btn btn-primary m-2">
+                Our Ingredients
+            </a>
+
+            <a href="/ingredients/create" class="btn btn-success m-2">
+                Create new Ingredients
+            </a>
+
             <form method="get" th:action="@{/search}" class="ms-auto">
                 <input name="query" placeholder="search by pizza name" size="50" th:value="${query}" type="text">
                 <button class="btn btn-info" type="submit">Search</button>
